@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/index.css">
+	<title>Тестовое задание</title>
+</head>
+<body>
+	<!-- обертка для страницы-->
+	<div class="wrapper">
+		<header class="header">
+			<div class="container">
+				<h1 class="title">Тестовое задание для стажера на позицию «Разработчик JS»</h1>
+			</div>
+		</header>
+		<main class="main">
+			<!-- задание коллаж -->
+			<section class="collage">
+				<div class="container">
+					<h2 class="title">№1 Отобразить коллаж с фотографиями животных</h2>	
+				</div>
+				
+			  <!-- контейнер для фулскрина изображения -->
+				<div class="fullscreen-container">
+					<img class="fullscreen-img" src="https://images.dog.ceo/breeds/maltese/n02085936_7364.jpg" alt="Fullscreen Image">
+					<div class="fullscreen-btn-container">
+						<button class="btn open-full" onclick="downloadImage()">Скачать</button>
+						<button class="btn close-full" onclick="closeFullscreen()">Закрыть</button>
+					</div>
+			  	</div>
+			  <!-- конец контейнера для фулскрина изображения -->
+
+			  <!-- контейнер для коллажа -->
+				<div class="collage-container">
+				</div>
+				<!-- конец контейнера для коллажа -->
+			</section>
+			<!-- конец задания коллаж -->
+
+			<!-- задание пользователи -->
+			<section class="users">
+				<div class="container">
+					<h2 class="title">№2 Отображение таблицы с данными</h2>
+					<table class="users-table"></table>
+				</div>
+			</section>
+			<!-- конец задания пользователи -->
+
+			<!-- кнопка для пролистывания наверх -->
+			<button class="btn-top">
+			</button>
+			<!-- конец кнопки для пролистывания наверх -->
+		</main>
+		<footer class="footer">
+			<div class="container">
+				<p class="copyright">Тестовое задание Хаваевой Ю.А. 2023</p>
+			</div>
+		</footer>
+	</div>
+	<!-- конец обертки для страницы -->
+
+	<script src="./js/index.js"></script>
+</body>
+</html>
