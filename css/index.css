@@ -93,6 +93,11 @@ html, body {
 .collage-container {
 	margin: 0 auto;
 	padding: 10px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 10px;
 	width: 35%;
 	height: 100vh;
 	background: var(--black-color);
@@ -100,10 +105,21 @@ html, body {
 }
 
 .collage-container img {
+	position: relative;
 	display: block;
-	float: left;
+	float: inline-start;
 	width: 20%;
+	opacity: 0;
+	transform: scale(0);
 	cursor: pointer;
+	animation: imgShow .5s ease-in-out forwards;
+}
+
+@keyframes imgShow {
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
 }
 
 .fullscreen-container {

@@ -2,13 +2,13 @@
 const collage = document.querySelector('.collage-container');
 const fullscreenContainer = document.querySelector('.fullscreen-container');
 const fullscreenImage = document.querySelector('.fullscreen-img');
-const buttonOpenFull = document.querySelector('.open-full');
+const buttonDownloadFull = document.querySelector('.download-full');
 const buttonCloseFull = document.querySelector('.close-full');
 const scrollToTop = document.querySelector('.btn-top');
 let images = []; // массив для временного хранения изображений
 let loadedImages = 0;
 let currentIndex = 0;
-let totalImages = 10; // максимум изображений в коллаже
+let totalImages = 20; // максимум изображений в коллаже
 let allowImageAddition = true; // флаг, разрешающий смену изображений (если режим просмотра, то флаг ставится в false)
 
 function loadImage() {
@@ -19,12 +19,11 @@ function loadImage() {
 		const image = new Image();
 		image.src = imageUrl;
 		image.onload = () => {
-			const timeout = setTimeout(loadImage, 3000);
 			if (loadedImages <= totalImages) {
 				addImageToCollage(image);
-			} else {
-				clearTimeout(timeout);
 			}
+			setTimeout(loadImage, 3000);
+			loadedImages++;
 		};
 	})
 	.catch(err => console.log(err));
@@ -64,25 +63,15 @@ function closeFullscreen() {
 }
 
 function downloadImage() {
-	const a = document.createElement('a');
-	a.href = fullscreenImage.src;
-	a.download = 'dog_image.jpg';
-	document.body.appendChild(a);
-	a.click();
-	document.body.removeChild(a);
+	const link = document.createElement('a');
+	link.href = fullscreenImage.src;
+	link.download = 'dog_image.jpg';
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
 }
 
-function initializeCollage() {
-	for (let i = 0; i < 20; i++) {
-		const image = new Image();
-		image.style.display = 'none';
-		images.push(image);
-	}
-
-	loadImage();
-}
-
-document.addEventListener('DOMContentLoaded', initializeCollage);
+document.addEventListener('DOMContentLoaded', loadImage);
 
 collage.addEventListener('click', e => {
 	const clickedImage = e.target;
@@ -93,7 +82,7 @@ collage.addEventListener('click', e => {
 	}
 });
 
-buttonOpenFull.addEventListener('click', openFullscreen);
+buttonDownloadFull.addEventListener('click', downloadImage);
 buttonCloseFull.addEventListener('click', closeFullscreen);
 
 scrollToTop.addEventListener('click', () => window.scrollTo(0, 0));
