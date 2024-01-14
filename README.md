@@ -1,5 +1,5 @@
 <h1>
-    <img height="30" src="https://biont.ru/upload/iblock/311/3114d25c1dd9e882f73800e8d6ad4700.jpg">
+    <img height="20" src="https://biont.ru/upload/iblock/311/3114d25c1dd9e882f73800e8d6ad4700.jpg">
     Тестовое задание для стажера «Разработчик JS»
 </h1>
 
