@@ -60,7 +60,7 @@ function downloadImage() {
 	link.download = 'dog_image.jpg';
 	document.body.appendChild(link);
 	link.click();
-	document.body.removeChild(link);
+	link.remove();
 }
 
 document.addEventListener('DOMContentLoaded', loadImage);

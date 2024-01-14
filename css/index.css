@@ -36,7 +36,9 @@ html, body {
 	color: var(--ligth-black-color);
 	font: 1em/1.5 sans-serif;
 	scroll-behavior: smooth;
+	overflow-x: hidden;
 }
+
 .header,
 .footer {
 	padding: 20px 0;
@@ -111,6 +113,38 @@ html, body {
 	color: var(--black-color);
 }
 
+.cross {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+
+.cross span {
+	position: relative;
+	display: block;
+	top: 0;
+	left: 10px;
+	width: 2px;
+	height: 24px;
+	background: var(--ligth-black-color);
+	border-radius: 2px;
+	transform: rotate(-45deg);
+}
+
+.cross span::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 2px;
+	height: 24px;
+	background: var(--ligth-black-color);
+	border-radius: 2px;
+	transform: rotate(90deg);
+}
+
 .collage-container {
 	margin: 0 auto;
 	position: relative;
@@ -166,6 +200,13 @@ html, body {
 	position: relative;
 }
 
+.users-settings {
+	padding: 10px 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 .users-table {
 	width: 100%;
 	text-align: center;
@@ -200,7 +241,8 @@ html, body {
 	border: 1px solid var(--gray-color);
 }
 
-.users-table-pagination button {
+.users-table-pagination button,
+.users-settings__item button {
 	padding: 5px 10px;
 	background: none;
 	border: 1px solid var(--light-gray-color);
@@ -218,13 +260,47 @@ html, body {
 	background: var(--light-gray-color);
 }
 
-.user-info-bar {
+.users-settings__item button {
+	background: var(--light-gray-color);
+}
+
+.users-settings__item button:hover {
+	background: none;
+}
+
+.user-sidebar {
 	position: absolute;
 	right: 0;
 	top: 0;
-	display: none;
+	display: block;
 	width: 50%;
-	min-height: 100%;
+	height: 100%;
 	background: var(--white-color);
-	border-left: 1px solid var(--light-gray-color);
+	overflow-y: scroll;
+	transform: translateX(100%);
+	opacity: 0;
+}
+
+.user-sidebar.active {
+	animation: openSidebar .5s ease forwards;
+}
+
+@keyframes openSidebar {
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+.user-sidebar .cross {
+	position: sticky;
+	top: 5px;
+	left: 20px;
+}
+
+.user-sidebar-post {
+	margin: 0 auto 20px;
+	padding: 20px;
+	width: 348px;
+	border: 1px solid var(--light-gray-color);
 }

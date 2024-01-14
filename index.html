@@ -46,6 +46,39 @@
 
 					<!-- контейнер для отображения таблицы с пользователями и боковой панели -->
 					<div class="users-table-container">
+						<!-- контейнер настроек отображения таблицы -->
+						<div class="users-settings">
+							<div class="users-settings__item">
+								<label for="field">
+									Сортировать по полю: 
+									<select name="field" id="field">
+										<option value="0">id</option>
+										<option value="1">Логин</option>
+										<option value="2">Электронной адрес</option>
+										<option value="3">ФИО</option>
+										<option value="4">Дата рождения</option>
+										<option value="5">Рост</option>
+										<option value="6">IP-адрес</option>
+									</select>
+								</label>
+								<label for="sort">
+									Сортировать по: 
+									<select name="sort" id="sort">
+										<option value="1">По возрастанию</option>
+										<option value="-1">По убыванию</option>
+									</select>
+								</label>
+								<button class="sort-users">Сортировать</button>
+							</div>
+
+							<div class="users-settings__item">
+								<label for="col-row">
+									Количество отображаемых строк на странице: 
+									<input id="col-row" type="number" min="1" max="15" value="10">
+								</label>
+							</div>
+						</div>
+						<!-- конец контейнера настроек отображения таблицы -->
 
 						<!-- таблица пользователей -->
 						<table class="users-table" border="1">
@@ -66,7 +99,10 @@
 						<!-- конец таблицы пользователей -->
 
 						<!-- контейнер постов пользователя -->
-						<aside class="user-info-bar">
+						<aside class="user-sidebar">
+							<div class="cross">
+								<span></span>
+							</div>
 							<h3 class="title">Посты пользователя</h3>
 						</aside>
 						<!-- конец контейнера постов пользователя -->
