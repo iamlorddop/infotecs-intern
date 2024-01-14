@@ -3,12 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./css/normalize.min.css">
 	<link rel="stylesheet" href="./css/index.css">
 	<title>Тестовое задание</title>
 </head>
 <body>
-	<!-- обертка для страницы-->
 	<div class="wrapper">
 		<header class="header">
 			<div class="container">
@@ -16,37 +14,24 @@
 			</div>
 		</header>
 		<main class="main">
-			<!-- задание коллаж -->
 			<section class="collage">
 				<div class="container">
 					<h2 class="title">№1 Отобразить коллаж с фотографиями животных</h2>	
 				</div>
-				
-			  <!-- контейнер для фулскрина изображения -->
 				<div class="fullscreen-container">
 					<img class="fullscreen-img" src="" alt="Fullscreen Image">
 					<div class="fullscreen-btn-container">
 						<button class="btn download-full">Скачать</button>
 						<button class="btn close-full">Закрыть</button>
 					</div>
-			  	</div>
-			  <!-- конец контейнера для фулскрина изображения -->
-
-			  <!-- контейнер для коллажа -->
+			  </div>
 				<div class="collage-container">
 				</div>
-				<!-- конец контейнера для коллажа -->
 			</section>
-			<!-- конец задания коллаж -->
-
-			<!-- задание пользователи -->
 			<section class="users">
 				<div class="container">
 					<h2 class="title">№2 Отображение таблицы с данными</h2>
-
-					<!-- контейнер для отображения таблицы с пользователями и боковой панели -->
 					<div class="users-table-container">
-						<!-- контейнер настроек отображения таблицы -->
 						<div class="users-settings">
 							<div class="users-settings__item">
 								<label for="field">
@@ -70,7 +55,6 @@
 								</label>
 								<button class="sort-users">Сортировать</button>
 							</div>
-
 							<div class="users-settings__item">
 								<label for="col-row">
 									Количество отображаемых строк на странице: 
@@ -78,9 +62,6 @@
 								</label>
 							</div>
 						</div>
-						<!-- конец контейнера настроек отображения таблицы -->
-
-						<!-- таблица пользователей -->
 						<table class="users-table" border="1">
 							<thead class="users-table__header">
 								<tr class="users-table__row">
@@ -96,23 +77,15 @@
 							<tbody>
 							</tbody>
 						</table>
-						<!-- конец таблицы пользователей -->
-
-						<!-- контейнер постов пользователя -->
 						<aside class="user-sidebar">
-							<div class="cross">
+							<div class="cross close-sidebar">
 								<span></span>
 							</div>
 							<h3 class="title">Посты пользователя</h3>
 						</aside>
-						<!-- конец контейнера постов пользователя -->
-						
 					</div>
-					<!-- конец контейнера для отображения таблицы с пользователями и боковой панели -->
 				</div>
 			</section>
-			<!-- конец задания пользователи -->
-
 			<!-- кнопка для пролистывания наверх -->
 			<button class="btn-top">
 			</button>
@@ -124,7 +97,6 @@
 			</div>
 		</footer>
 	</div>
-	<!-- конец обертки для страницы -->
 
 	<script src="./js/index.js"></script>
 	<script src="./js/collage.js"></script>

@@ -1,11 +1,33 @@
 const content = document.querySelector('.users-table-container');
 const table = content.querySelector('.users-table');
 const userPostsContainer = content.querySelector('.user-sidebar');
-const countInputForPage = document.getElementById('col-row'); // инпут, который говорит сколько максимум строк может быть на одной странице
-let itemsPerPage = 10; // добавить возможность изменять количество отображаемых пользователей
+const countInputForPage = document.getElementById('col-row'); 
+let itemsPerPage = 10;
 let currentPage = 0;
 
-function loadUsers() { // загружаем пользователей
+document.addEventListener('DOMContentLoaded', loadUsers);
+
+document.querySelector('.close-sidebar').addEventListener('click', () => {
+	const items = userPostsContainer.querySelectorAll('.user-sidebar-post');
+
+	items.forEach(item => item.remove());
+	userPostsContainer.classList.remove('active');
+});
+
+document.querySelector('.sort-users').addEventListener('click', sortUsers);
+
+countInputForPage.addEventListener('change', () => {
+	itemsPerPage = Number(countInputForPage.value);
+	resetSortingSettings();
+	showPage(currentPage);
+	createPagination(); // Обновим пагинацию
+});
+
+/**
+ * Запрос пользователей пользователей
+ * 
+ */
+function loadUsers() {
 	fetch('https://dummyjson.com/users')
 	.then(res => res.json())
 	.then(data => {
@@ -28,6 +50,11 @@ function loadUsers() { // загружаем пользователей
 	.catch(err => console.log(err));
 }
 
+/**
+ * Делает запрос постов по id пользователя
+ * 
+ * @param {Event} e 
+ */
 function getUserPosts(e) {
 	const row = e.currentTarget;
 
@@ -51,7 +78,12 @@ function getUserPosts(e) {
 	userPostsContainer.classList.add('active'); // отображаем боковую панель
 }
 
-function generateRows(user) { // создаем строку с пользователем
+/**
+ * Cоздает строку с пользователем в таблице
+ * 
+ * @param {Object} user 
+ */
+function generateRows(user) {
 	const row = document.createElement('tr');
 	
 	for (let field in user) {
@@ -65,6 +97,11 @@ function generateRows(user) { // создаем строку с пользова
 	table.tBodies[0].appendChild(row);
 }
 
+/**
+ * Создает пост пользователя и добавляет их в .user-sidebar
+ * 
+ * @param {Object} post 
+ */
 function generateUserPosts(post) {
 	const postContainer = document.createElement('article');
 	const title = document.createElement('h3');
@@ -80,10 +117,15 @@ function generateUserPosts(post) {
 	userPostsContainer.appendChild(postContainer);
 }
 
-function showPage(page) { // показываем текущую или выбранную страницу
+/**
+ * Показываем текущую или выбранную страницу с набором записей
+ * 
+ * @param {Number} page Номер текущей страницы
+ */
+function showPage(page) {
 	const items = Array.from(content.getElementsByTagName('tr')).slice(1);
-	const start = page * itemsPerPage; // определяем какие элементы показывать
-	const end = start + itemsPerPage; // определяем на каком элементе заканчивать страницу
+	const start = page * itemsPerPage;
+	const end = start + itemsPerPage;
 
 	resetSortingSettings(); // сброс настроек сортировки при отображении новой страницы
 
@@ -94,107 +136,61 @@ function showPage(page) { // показываем текущую или выбр
 	updateActiveButton(); // обновляем состояние кнопки
 }
 
-function createPagination() { // создаем пагинацию
+/**
+ * Cоздает пагинацию
+ * 
+ */
+function createPagination() {
 	const items = Array.from(content.getElementsByTagName('tr')).slice(1);
-	const totalPages = Math.ceil(items.length / itemsPerPage); // определяем количество страниц
+	const totalPages = Math.ceil(items.length / itemsPerPage);
 	const paginationConteiner = document.createElement('div');
 
 	paginationConteiner.classList.add('users-table-pagination');
 
-	for (let i = 0; i < totalPages; i++) { // создаем кнопки для пагинации
+	for (let i = 0; i < totalPages; i++) {
 		const button = document.createElement('button');
-		
 		button.classList.add('pagination-item');
 		button.innerHTML = i + 1;
 		button.addEventListener('click', () => {
 			currentPage = i;
-			resetSortingSettings(); // Сброс настроек сортировки
+			resetSortingSettings();
 			sortUsers();
 			showPage(currentPage);
 			updateActiveButton();
 		});
-
 		paginationConteiner.appendChild(button);
 	}
 
-	removePagination(); // Удаляем прошлую пагинацию
+	removePagination();
 	content.appendChild(paginationConteiner);
 }
 
-function removePagination() { // функция для удаления прошлой пагинации
+/**
+ * Удаляет не актуальную пагинацию
+ * 
+ */
+function removePagination() { 
 	const existingPagination = content.querySelector('.users-table-pagination');
 	if (existingPagination) {
 	  existingPagination.remove();
 	}
 }
 
-function updateActiveButton() { // обновляем состояние активной кнопки
+/**
+ * Обновляет состояние активной кнопки
+ * 
+ */
+function updateActiveButton() {
 	const buttons = document.querySelectorAll('.users-table-pagination .pagination-item');
-
-	buttons.forEach((button, index) => {
-		if (index === currentPage) { // если индекс кнопки это текущая страница, то добавляем .active
-			button.classList.add('active');
-		} else {
-			button.classList.remove('active');
-		}
-	});
+	buttons.forEach((button, index) => button.classList.toggle('active', index === currentPage));
 }
 
-// функции сравнения для разных 'типов': 1 - по возрастанию, -1 - по убыванию
-function compareNumbers(a, b, sortOrder) {
-	if (sortOrder === '1') {
-	  return a - b;
-	} else {
-	  return b - a;
-	}
-}
- 
-function compareDates(a, b, sortOrder) {
-	if (sortOrder === '1') {
-		return b - a;
-	} else {
-		return a - b;
-	}
-}
- 
-function compareStrings(a, b, sortOrder) {
-	if (sortOrder === '1') {
-	  return b.localeCompare(a);
-	} else {
-	  return a.localeCompare(b);
-	}
-}
- 
-function compareIPAddresses(a, b, sortOrder) {
-	const splitA = a.split('.').map(Number); // разделяем строку на массив чисел
-	const splitB = b.split('.').map(Number);
- 
-	if (sortOrder === '1') {
-	  	for (let i = 0; i < 4; i++) {
-		 	if (splitA[i] !== splitB[i]) {
-				return splitA[i] - splitB[i];
-		 	}
-	  	}
-	} else {
-	  	for (let i = 0; i < 4; i++) {
-		 	if (splitB[i] !== splitA[i]) {
-				return splitB[i] - splitA[i];
-		 	}
-	  	}
-	}
-}
-
-function compareNames(a, b, sortOrder) {
-	const aLastName = a.split(' ')[0]; // сортировка по фамилии
-  	const bLastName = b.split(' ')[0];
-
-  	if (sortOrder === '1') {
-		return bLastName.localeCompare(aLastName);
-  	} else {
-		return aLastName.localeCompare(bLastName);
-  	}
-}
-
+/**
+ * 
+ * @param {String} cell 
+ * @param {String} fieldType 
+ * @returns {String|Number|Date}
+ */
 function getCellValue(cell, fieldType) {
 	const cellContent = cell.textContent.trim();
 
@@ -202,7 +198,7 @@ function getCellValue(cell, fieldType) {
 		return;
 	}
 	
-	switch (fieldType) { // Проверка типа поля
+	switch (fieldType) {
 		case 'number':
 		  return Number(cellContent);
 		case 'date':
@@ -216,27 +212,50 @@ function getCellValue(cell, fieldType) {
 	}
 }
 
+/**
+ * Сортирует пользователей в зависимости 
+ * от указанных значений в select
+ * 
+ */
 function sortUsers() {
 	const sort = document.getElementById('sort').value;
-	const cell = +document.getElementById('field').value;
+	const cell = Number(document.getElementById('field').value);
 	const fieldType = determineFieldType(cell);
+
 	const items = Array.from(table.getElementsByTagName('tr'))
 	.slice(1)
 	.sort((a, b) => {
 		const aValue = getCellValue(a.cells[cell], fieldType);
-    	const bValue = getCellValue(b.cells[cell], fieldType);
+    const bValue = getCellValue(b.cells[cell], fieldType);
 
 		switch (fieldType) {
 			case 'number':
-				return compareNumbers(aValue, bValue, sort);
+        return (sort === '1') ? aValue - bValue : bValue - aValue;
 			case 'date':
-				return compareDates(aValue, bValue, sort);
+        return (sort === '1') ? bValue - aValue : aValue - bValue;
 			case 'string':
-				return compareStrings(aValue, bValue, sort);
+        return (sort === '1') ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
 			case 'ip':
-				return compareIPAddresses(aValue, bValue, sort);
+        const splitA = aValue.split('.').map(Number);
+        const splitB = bValue.split('.').map(Number);
+      
+        if (sort === '1') {
+            for (let i = 0; i < 4; i++) {
+              if (splitA[i] !== splitB[i]) {
+                return splitA[i] - splitB[i];
+              }
+            }
+        } else {
+            for (let i = 0; i < 4; i++) {
+              if (splitB[i] !== splitA[i]) {
+                return splitB[i] - splitA[i];
+              }
+            }
+        }
 			case 'name':
-				return compareNames(aValue, bValue, sort);
+        return (sort === '1') 
+                ? bValue.split(' ')[0].localeCompare(aValue.split(' ')[0]) 
+                : aValue.split(' ')[0].localeCompare(bValue.split(' ')[0])
 			default:
 				return;
 		}
@@ -245,11 +264,23 @@ function sortUsers() {
 	table.tBodies[0].append(...items);
 }
 
-function resetSortingSettings() { // значения сортировки по умолчанию
-	document.getElementById('sort').value = '1'; // Установим сортировку по возрастанию
-	document.getElementById('field').value = '0'; // Установим поле для сортировки по умолчанию
+/**
+ * Устанавливает значения сортировки по умолчанию
+ * По умолчанию: по возрастанию, поле id
+ * 
+ */
+function resetSortingSettings() {
+	document.getElementById('sort').value = '1';
+	document.getElementById('field').value = '0';
 }
 
+/**
+ * Определяет тип для поля в таблице,
+ * для дальнейщего использования в сортировке
+ * 
+ * @param {Number} field Номер поля таблицы
+ * @returns {String} Тип поля
+ */
 function determineFieldType(field) {
 	switch (field) {
 		case 0:
@@ -265,21 +296,3 @@ function determineFieldType(field) {
 			return 'string';
 	}
 }
-
-document.addEventListener('DOMContentLoaded', loadUsers);
-
-document.querySelector('.cross').addEventListener('click', () => {
-	const items = userPostsContainer.querySelectorAll('.user-sidebar-post');
-
-	items.forEach(item => item.remove());
-	userPostsContainer.classList.remove('active');
-});
-
-document.querySelector('.sort-users').addEventListener('click', sortUsers);
-
-countInputForPage.addEventListener('change', () => {
-	itemsPerPage = Number(countInputForPage.value);
-	resetSortingSettings();
-	showPage(currentPage);
-	createPagination(); // Обновим пагинацию при изменении количества строк на странице
-});
