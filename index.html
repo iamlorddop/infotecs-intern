@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/normalize.min.css">
 	<link rel="stylesheet" href="./css/index.css">
 	<title>Тестовое задание</title>
 </head>
@@ -23,7 +24,7 @@
 				
 			  <!-- контейнер для фулскрина изображения -->
 				<div class="fullscreen-container">
-					<img class="fullscreen-img" src="https://images.dog.ceo/breeds/maltese/n02085936_7364.jpg" alt="Fullscreen Image">
+					<img class="fullscreen-img" src="" alt="Fullscreen Image">
 					<div class="fullscreen-btn-container">
 						<button class="btn download-full">Скачать</button>
 						<button class="btn close-full">Закрыть</button>
@@ -42,7 +43,36 @@
 			<section class="users">
 				<div class="container">
 					<h2 class="title">№2 Отображение таблицы с данными</h2>
-					<table class="users-table"></table>
+
+					<!-- контейнер для отображения таблицы с пользователями и боковой панели -->
+					<div class="users-table-container">
+
+						<!-- таблица пользователей -->
+						<table class="users-table" border="1">
+							<thead class="users-table__header">
+								<tr class="users-table__row">
+									<th class="users-table__col">id</th>
+									<th class="users-table__col">Логин</th>
+									<th class="users-table__col">Электронной адрес</th>
+									<th class="users-table__col">ФИО</th>
+									<th class="users-table__col">Дата рождения</th>
+									<th class="users-table__col">Рост</th>
+									<th class="users-table__col">IP-адрес</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+						<!-- конец таблицы пользователей -->
+
+						<!-- контейнер постов пользователя -->
+						<aside class="user-info-bar">
+							<h3 class="title">Посты пользователя</h3>
+						</aside>
+						<!-- конец контейнера постов пользователя -->
+						
+					</div>
+					<!-- конец контейнера для отображения таблицы с пользователями и боковой панели -->
 				</div>
 			</section>
 			<!-- конец задания пользователи -->
@@ -61,5 +91,7 @@
 	<!-- конец обертки для страницы -->
 
 	<script src="./js/index.js"></script>
+	<script src="./js/collage.js"></script>
+	<script src="./js/users.js"></script>
 </body>
 </html>

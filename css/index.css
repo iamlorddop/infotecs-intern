@@ -5,14 +5,35 @@
 	box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--gray-color);
+	border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--medium-gray-color);
+}
+/* конец сброса стилей */
+
+/* переменные */
 :root {
 	--black-color: #000;
+	--ligth-black-color: #333;
 	--white-color: #fff;
+	--gray-color: #92959e;
+	--medium-gray-color: #7d7f87;
+	--light-gray-color: #e7e7e7;
 }
+/* конец переменных */
 
 html, body {
 	min-width: 100%;
 	min-height: 100%;
+	color: var(--ligth-black-color);
 	font: 1em/1.5 sans-serif;
 	scroll-behavior: smooth;
 }
@@ -92,12 +113,8 @@ html, body {
 
 .collage-container {
 	margin: 0 auto;
+	position: relative;
 	padding: 10px;
-	display: flex;
-	align-items: flex-start;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	gap: 10px;
 	width: 35%;
 	height: 100vh;
 	background: var(--black-color);
@@ -105,9 +122,9 @@ html, body {
 }
 
 .collage-container img {
-	position: relative;
+	position: absolute;
+	margin: 5px;
 	display: block;
-	float: inline-start;
 	width: 20%;
 	opacity: 0;
 	transform: scale(0);
@@ -143,4 +160,71 @@ html, body {
 
 .fullscreen-container.active {
 	display: flex;
+}
+
+.users-table-container {
+	position: relative;
+}
+
+.users-table {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+	border: 1px solid var(--light-gray-color);
+}
+
+.users-table tr {
+	transition: all .3s ease;
+	cursor: pointer;
+}
+
+.users-table tr:hover {
+	background: var(--light-gray-color);
+	border: 1px solid var(--gray-color);
+}
+
+.users-table tr.hidden {
+	display: none;
+}
+
+.users-table-pagination {
+	margin: 20px 0;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	width: 100%;
+}
+
+.users-table__header tr {
+	background: var(--light-gray-color);
+	border: 1px solid var(--gray-color);
+}
+
+.users-table-pagination button {
+	padding: 5px 10px;
+	background: none;
+	border: 1px solid var(--light-gray-color);
+	border-radius: 2px;
+	outline: none;
+	cursor: pointer;
+	transition: all .3s ease;
+}
+
+.users-table-pagination button:hover {
+	background: var(--light-gray-color);
+}
+
+.users-table-pagination button.active {
+	background: var(--light-gray-color);
+}
+
+.user-info-bar {
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+	width: 50%;
+	min-height: 100%;
+	background: var(--white-color);
+	border-left: 1px solid var(--light-gray-color);
 }
