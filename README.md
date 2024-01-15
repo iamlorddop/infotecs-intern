@@ -1,6 +1,6 @@
 <h1>
-    <img height="30" src="https://biont.ru/upload/iblock/311/3114d25c1dd9e882f73800e8d6ad4700.jpg">
-    Тестовое задание для стажера на позицию «Разработчик JS»
+    <img height="20" src="https://biont.ru/upload/iblock/311/3114d25c1dd9e882f73800e8d6ad4700.jpg">
+    Тестовое задание для стажера «Разработчик JS»
 </h1>
 
 ![HTML](https://img.shields.io/badge/-html-ffffff?style=for-the-badge&logo=html&logoColor=FF5C00)
@@ -11,9 +11,9 @@
 
 ## Задание
 
-### №1 Отобразить коллаж с фотографиями животных
+№1 Отобразить коллаж с фотографиями животных
 
-### №2 Отображение таблицы с данными
+№2 Отображение таблицы с данными
 
 ### HTML
 Разметка страницы написана в файле `index.html`.
