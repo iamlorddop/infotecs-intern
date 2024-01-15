@@ -27,27 +27,28 @@ countInputForPage.addEventListener('change', () => {
  * Запрос пользователей пользователей
  * 
  */
-function loadUsers() {
-	fetch('https://dummyjson.com/users')
-	.then(res => res.json())
-	.then(data => {
-		const users = data.users;
-		users.map(user => {
-			generateRows({ // берем нужные данные и передаем их в функцию generateRows
-				id: user.id,
-				username: user.username,
-				email: user.email,
-				name: `${user.lastName} ${user.firstName}`,
-				birthDate: user.birthDate,
-				height: user.height,
-				ip: user.ip
-			});
-		});
+async function loadUsers() {
+  try {
+    const response = await fetch('https://dummyjson.com/users');
+    const data = await response.json();
+    const users = data.users;
+    for (const user of users) {
+      generateRows({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        name: `${user.lastName} ${user.firstName}`,
+        birthDate: user.birthDate,
+        height: user.height,
+        ip: user.ip
+      });
+    }
 
-		createPagination();
-		showPage(currentPage);
-	})
-	.catch(err => console.log(err));
+    createPagination();
+    showPage(currentPage);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 /**
@@ -55,27 +56,32 @@ function loadUsers() {
  * 
  * @param {Event} e 
  */
-function getUserPosts(e) {
-	const row = e.currentTarget;
+async function getUserPosts(e) {
+  const row = e.currentTarget;
 
-	if (row.tagName !== 'TR') {
-		return;
-	}
+  if (row.tagName !== 'TR') {
+    return;
+  }
 
-	const id = row.firstChild.textContent;
+  const id = row.firstChild.textContent;
 
-	fetch(`https://dummyjson.com/users/${id}/posts`)
-	.then(res => res.json())
-	.then(data => {
-		const posts = data.posts;
-		posts.map(post => generateUserPosts({
-			id: post.id,
-			title: post.title,
-			text: post.body
-		}))
-	});
+  try {
+    const response = await fetch(`https://dummyjson.com/users/${id}/posts`);
+    const data = await response.json();
 
-	userPostsContainer.classList.add('active'); // отображаем боковую панель
+    const posts = data.posts;
+    for (const post of posts) {
+      generateUserPosts({
+        id: post.id,
+        title: post.title,
+        text: post.body
+      });
+    }
+
+    userPostsContainer.classList.add('active'); // отображаем боковую панель
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 /**
