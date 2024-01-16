@@ -31,7 +31,7 @@ buttonCloseFull.addEventListener('click', closeFullscreen);
  */
 async function loadImage() {
   try {
-    const res = await fetch('https://dog.ceo/api/breeds/image/random');
+    const res = await fetch('https://dog.ceo/api/breeds/image/random', {mode: 'cors'});
     const data = await res.json();
     const imageUrl = data.message;
     images.push(imageUrl);
