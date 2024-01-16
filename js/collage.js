@@ -65,14 +65,14 @@ async function displayImages() {
 
     // Проверка, поместится ли изображение в оставшееся место
     if (occupiedSpace > collageHeight) {
-      clearCollage();
+      setTimeout(clearCollage, 3000);
       return;
     }
 
     if (currentIndex < totalImages) {
       setTimeout(displayImages, 3000); // Задержка в 3 секунды
     } else {
-      clearCollage();
+      setTimeout(clearCollage, 3000);
       currentIndex = 0;
     }
   };
