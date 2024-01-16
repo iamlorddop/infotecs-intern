@@ -4,6 +4,12 @@
 	box-sizing: border-box;
 }
 
+button {
+  color: inherit;
+  outline: none;
+  border: none;
+}
+
 ::-webkit-scrollbar {
 	width: 4px;
 }
@@ -42,6 +48,7 @@ html, body {
 
 .container {
 	margin: 0 auto;
+  padding: 0 20px;
 	max-width: 1440px;
 }
 
@@ -79,8 +86,6 @@ html, body {
 	font-weight: 700;
 	color: var(--white-color);
 	background: var(--black-color);
-	outline: none;
-	border: none;
 	border-radius: 6px;
   cursor: pointer;
 	transition: all .3s ease;
@@ -141,7 +146,6 @@ html, body {
 	border-radius: 2px;
 	transform: rotate(90deg);
 }
-
 
 .collage-container {
   margin: 0 auto;
@@ -265,7 +269,6 @@ html, body {
 	background: none;
 	border: 1px solid var(--light-gray-color);
 	border-radius: 2px;
-	outline: none;
 	cursor: pointer;
 	transition: all .3s ease;
 }

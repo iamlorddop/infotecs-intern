@@ -3,11 +3,9 @@ const fullscreenContainer = document.querySelector('.fullscreen-container');
 const fullscreenImage = document.querySelector('.fullscreen-img');
 const buttonDownloadFull = document.querySelector('.download-full');
 const buttonCloseFull = document.querySelector('.close-full');
-const collagePadding = 10; // отступ от края контейнера
-const collageHeight = collage.clientHeight - 2 * collagePadding; // учитываем отступы сверху и снизу
-const imagesMargin = 10; // расстояние между изображениями
 let images = []; // массив для временного хранения изображений
 let currentIndex = 0;
+let occupiedSpace = 0; // Показывает сколько места занято в коллаже
 let allowImageAddition = true; // флаг, разрешающий смену изображений (если режим просмотра, то флаг ставится в false)
 
 document.addEventListener('DOMContentLoaded', displayImages);
@@ -46,25 +44,40 @@ async function loadImage() {
  * 
  */
 async function displayImages() {
+  const collagePadding = 10; // Отступ от края контейнера
+  const collageHeight = collage.offsetHeight - 2 * collagePadding; // Учитываем отступы сверху и снизу
   let totalImages = 20;
 
-  if (!allowImageAddition) { // запрет на добавление изображений
+  // Запрет на добавление изображений
+  if (!allowImageAddition) { 
     return;
   }
 
   await loadImage();
   const img = new Image();
-  img.src = images[currentIndex];
-  img.style.display = 'block';
-  collage.appendChild(img);
-  currentIndex++;
 
-  if (currentIndex < totalImages) {
-    setTimeout(displayImages, 3000); // Задержка в 3 секунды
-  } else {
-    clearCollage();
-    currentIndex = 0;
-  }
+  // Когда изображение полностью загружено
+  img.onload = function() {
+    img.style.display = 'block';
+    collage.appendChild(img);
+    currentIndex++;
+    occupiedSpace = img.offsetTop + img.offsetHeight; // Запоминаем сколько занято места
+
+    // Проверка, поместится ли изображение в оставшееся место
+    if (occupiedSpace > collageHeight) {
+      clearCollage();
+      return;
+    }
+
+    if (currentIndex < totalImages) {
+      setTimeout(displayImages, 3000); // Задержка в 3 секунды
+    } else {
+      clearCollage();
+      currentIndex = 0;
+    }
+  };
+
+  img.src = images[currentIndex];
 }
 
 /**
@@ -81,6 +94,8 @@ function clearCollage() {
   setTimeout(() => {
     collage.innerHTML = '';
     images = [];
+    currentIndex = 0;
+    occupiedSpace = 0;
     displayImages();
   }, 1000);
 }
