@@ -58,10 +58,9 @@ async function displayImages() {
 
   // Когда изображение полностью загружено
   img.onload = function() {
-    img.style.display = 'block';
     collage.appendChild(img);
     currentIndex++;
-    occupiedSpace = img.offsetTop + img.offsetHeight; // Запоминаем сколько занято места
+    occupiedSpace = (img.getBoundingClientRect().top - collage.getBoundingClientRect().top) + img.offsetHeight; // Запоминаем сколько занято места
 
     // Проверка, поместится ли изображение в оставшееся место
     if (occupiedSpace > collageHeight) {
@@ -70,7 +69,7 @@ async function displayImages() {
     }
 
     if (currentIndex < totalImages) {
-      setTimeout(displayImages, 3000); // Задержка в 3 секунды
+      setTimeout(displayImages, 300); // Задержка в 3 секунды
     } else {
       setTimeout(clearCollage, 3000);
       currentIndex = 0;

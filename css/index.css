@@ -384,3 +384,9 @@ html, body {
     align-items: flex-start;
   }
 }
+
+@media (max-width: 520px) {
+  .collage-container {
+    height: 80vh;
+  }
+}
