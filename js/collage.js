@@ -69,7 +69,7 @@ async function displayImages() {
     }
 
     if (currentIndex < totalImages) {
-      setTimeout(displayImages, 300); // Задержка в 3 секунды
+      setTimeout(displayImages, 3000); // Задержка в 3 секунды
     } else {
       setTimeout(clearCollage, 3000);
       currentIndex = 0;
