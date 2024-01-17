@@ -1,3 +1,5 @@
+const sortButton = document.querySelector('.sort-users');
+const closeButton = document.querySelector('.close-sidebar');
 const content = document.querySelector('.users-table-container');
 const table = content.querySelector('.users-table');
 const userPostsContainer = content.querySelector('.user-sidebar');
@@ -7,14 +9,19 @@ let currentPage = 0;
 
 document.addEventListener('DOMContentLoaded', loadUsers);
 
-document.querySelector('.close-sidebar').addEventListener('click', () => {
+closeButton.addEventListener('click', () => {
 	const items = userPostsContainer.querySelectorAll('.user-sidebar-post');
 
-	items.forEach(item => item.remove());
-	userPostsContainer.classList.remove('active');
+  closeButton.classList.add('close');
+
+  setTimeout(() => {
+	  items.forEach(item => item.remove());
+	  userPostsContainer.classList.remove('active');
+    closeButton.classList.remove('close')
+  }, 500);
 });
 
-document.querySelector('.sort-users').addEventListener('click', sortUsers);
+sortButton.addEventListener('click', sortUsers);
 
 countInputForPage.addEventListener('change', () => {
 	itemsPerPage = Number(countInputForPage.value);

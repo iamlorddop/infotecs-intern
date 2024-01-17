@@ -5,13 +5,13 @@
 }
 
 button {
-  color: inherit;
-  outline: none;
   border: none;
 }
 
+button,
 input,
 select {
+  color: inherit;
   outline: none;
 }
 
@@ -123,7 +123,7 @@ html, body {
 	height: 24px;
 	background: var(--ligth-black-color);
 	border-radius: 2px;
-	transform: rotate(-45deg);
+	transform: rotate(-45deg) scale(1);
 }
 
 .cross span::before {
@@ -136,12 +136,27 @@ html, body {
 	height: 24px;
 	background: var(--ligth-black-color);
 	border-radius: 2px;
-	transform: rotate(90deg);
+	transform: rotate(90deg) scale(1);
 }
+
+.cross.close span,
+.cross.close span::before {
+  animation: closeCross .4s ease-in forwards;
+}
+
+@keyframes closeCross {
+  30% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(0) scale(0);
+  }
+}
+
 
 .collage-container {
   margin: 0 auto;
-  padding: 5px 5px 5px;
+  padding: 5px;
 	width: 35%;
 	height: 100vh;
 	background: var(--black-color);
